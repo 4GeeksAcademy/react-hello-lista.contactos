@@ -29,7 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						method: "GET",
 						headers: { "Content-Type": "application/json" }
 					})
-					if (response.status == 201) {
+					if (response.status == 200) {
 						const data = await response.json()
 						setStore({ contacts: data.contacts })
 						console.log(data.contacts)
@@ -39,6 +39,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 						getActions().createUser()
 						return
 					}
+				} catch (error) {
+					console.log(error)
+					return false
+				}
+
+			},
+			createContacto: async (nuevoContacto) => {
+				try {
+					const response = await fetch("https://playground.4geeks.com/contact/agendas/Beli/contacts", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" }, 
+						body: JSON.stringify(nuevoContacto)
+					})
+					if (response.status == 201) {
+						getActions().getContact()
+						return true
+					}
+				} catch (error) {
+					console.log(error)
+					return false
+				}
+
+			},
+
+			deleteContact: async (id) => {
+				try {
+					const response = await fetch("https://playground.4geeks.com/contact/agendas/Beli/contacts/"+id, {
+						method: "DELETE",
+						headers: { "Content-Type": "application/json" }
+					})
+					console.log(response.status)
+					if (response.status == 204) {
+						getActions().getContact()
+						return true
+					}
+					
 				} catch (error) {
 					console.log(error)
 					return false
