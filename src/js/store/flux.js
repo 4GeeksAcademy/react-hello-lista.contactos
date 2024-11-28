@@ -82,6 +82,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
+			editContact: async (id,contacto) => {
+				try {
+					const response = await fetch("https://playground.4geeks.com/contact/agendas/Beli/contacts/"+id, {
+						method: "PUT",
+						headers: { "Content-Type": "application/json" },
+						body:JSON.stringify(contacto)
+					})
+					console.log(response.status)
+					if (response.status == 200) {
+						getActions().getContact()
+						return true
+					}
+					
+				} catch (error) {
+					console.log(error)
+					return false
+				}
+
+			},
+
 		}
 	};
 };

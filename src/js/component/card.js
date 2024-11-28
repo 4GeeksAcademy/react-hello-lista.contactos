@@ -2,7 +2,7 @@ import React,{useContext} from "react";
 import rigoImage from "../../img/rigo-baby.jpg";
 import { Context } from "../store/appContext";
 
-const Card = ({ id, name, phone, email, address }) => {
+const Card = ({ id, name, phone, email, address, editar }) => {
     const{actions}=useContext(Context)
 
     return (
@@ -17,8 +17,8 @@ const Card = ({ id, name, phone, email, address }) => {
                             <div className="d-flex justify-content-between">
                                 <h5 className="card-title">{name}</h5>
                                 <div>
-                                    <button type="button" className="btn btn-outline-success mx-2"
-                                    //  data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    <button type="button" className="btn btn-outline-success mx-2" onClick={()=> editar()}
+                                     data-bs-toggle="modal" data-bs-target="#editModal"
                                     >
                                         <i className="fa fa-pen"></i>
                                     </button>
